@@ -1,13 +1,6 @@
-
 import React from "react";
-import { Pressable } from "react-native";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Linking,
-} from "react-native";
+import { ImageStyle, Pressable, TextStyle, ViewStyle } from "react-native";
+import { View, Text, Image, StyleSheet, Linking } from "react-native";
 
 interface HeighlightsCardProps {
   title: string;
@@ -15,6 +8,10 @@ interface HeighlightsCardProps {
   backgroundImg: string;
   date: string;
   matchLink: string;
+  customWidth?: ViewStyle;
+  imageHeight?: ImageStyle;
+  titleSize?: TextStyle;
+  padLeft?: ViewStyle;
   // onPress: () => void;
 }
 
@@ -23,6 +20,10 @@ const HeighlightsCard: React.FC<HeighlightsCardProps> = ({
   backgroundImg,
   date,
   matchLink,
+  customWidth = {},
+  imageHeight = {},
+  titleSize = {},
+  padLeft={}
   // onPress,
 }) => {
   const handlePress = () => {
@@ -30,13 +31,18 @@ const HeighlightsCard: React.FC<HeighlightsCardProps> = ({
   };
 
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.cardInner} onPress={handlePress}>
+    <View style={[styles.container, padLeft]}>
+      <Pressable style={[styles.cardInner, customWidth]} onPress={handlePress}>
         <View style={styles.imgWrap}>
-          <Image source={{ uri: backgroundImg }} style={styles.image} />
+          <Image
+            source={{ uri: backgroundImg }}
+            style={[styles.image, imageHeight]}
+          />
         </View>
         <View style={styles.midBox}>
-          <Text style={styles.mainTitle}>{mainTitle}</Text>
+          <Text style={[styles.mainTitle, titleSize]} numberOfLines={2} ellipsizeMode="tail">
+            {mainTitle}
+          </Text>
         </View>
         <View style={styles.footBox}>
           <Text style={styles.dateBox}>{date}</Text>
@@ -49,20 +55,22 @@ const HeighlightsCard: React.FC<HeighlightsCardProps> = ({
 const styles = StyleSheet.create({
   container: {
     position: "relative",
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
   cardInner: {
     borderRadius: 8,
     overflow: "hidden",
     backgroundColor: "#fff",
     elevation: 3,
+    width: 340,
+    height: 340,
   },
   imgWrap: {
     position: "relative",
   },
   image: {
     width: "100%",
-    height: 250,
+    height: 240,
     resizeMode: "cover",
   },
   playBtn: {
@@ -89,6 +97,7 @@ const styles = StyleSheet.create({
   footBox: {
     padding: 10,
     backgroundColor: "#f5f5f5",
+    paddingBottom: 10,
   },
   dateBox: {
     fontSize: 12,

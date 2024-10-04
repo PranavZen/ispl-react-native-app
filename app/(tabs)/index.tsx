@@ -4,7 +4,6 @@ import HeighlightsSection from "@/components/sectionscomponent/HeighlightsSectio
 import MagicMomentsSection from "@/components/sectionscomponent/MagicMomentsSection";
 import NewsnEvents from "@/components/sectionscomponent/NewsnEvents";
 import WhatAreLookingFor from "@/components/sectionscomponent/WhatAreLookingFor";
-import TopSlider from "@/components/topslider/TopSlider";
 import { useState } from "react";
 import { RefreshControl } from "react-native";
 import { StyleSheet, ScrollView } from "react-native";
@@ -25,7 +24,7 @@ export default function HomeScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
       >
-        <TopSlider />
+        {/* <TopSlider /> */}
         <BannerSlider />
         <HeighlightsSection />
         <MagicMomentsSection />

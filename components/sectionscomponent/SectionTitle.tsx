@@ -1,7 +1,7 @@
 // SectionTitle.tsx
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import { Text, StyleSheet, View } from "react-native";
 
 interface SectionTitleProps {
@@ -22,9 +22,9 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{titleText}</Text>
-      <TouchableOpacity onPress={handlePress}>
+      <Pressable onPress={handlePress}>
         <Text style={styles.linkText}>{readMore} &gt;&gt;</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

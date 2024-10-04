@@ -1,54 +1,58 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import SectionTitle from "./SectionTitle";
-import HeighlightsCard from "../cardcomponents/SliderCard";
-import Swiper from "react-native-swiper";
+import HighlightsCard from "../cardcomponents/SliderCard";
 
-export default function magicmommentsection() {
-  const [videos, setVideos] = useState([]);
+interface Video {
+  title: string;
+  thumbnail: string;
+  date: string;
+  video_link: string;
+  category_names: string;
+}
+
+export default function MagicMommentSection() {
+  const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
     fetch("https://my.ispl-t10.com/api/video-master/all-vedios")
       .then((response) => response.json())
       .then((data) => {
         const magicMomentVideos = data.data["all-video"].filter(
-          (video: { category_names: string }) =>
-            video.category_names === "Magic-Moments"
+          (video: Video) => video.category_names === "Magic-Moments"
         );
         setVideos(magicMomentVideos);
-      });
+      })
+      .catch((error) => console.error("Error fetching videos:", error));
   }, []);
+
   return (
     <View style={styles.mainWrap}>
       <View style={styles.mainContainer}>
         <SectionTitle
           titleText="Magic Moments"
           readMore="Read More"
-          targetScreen="registration"
+          targetScreen="magicmomentsmainscreen"
         />
-
-        <Swiper
-          autoplay={true}
-          loop={true}
-          autoplayTimeout={5}
-          dot={false}
-          showsPagination={false}
-        >
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {videos.map((video, index) => (
-            <View key={index}>
-              <HeighlightsCard
-                mainTitle={video.title}
-                backgroundImg={`https://my.ispl-t10.com/images/videos/thumbnail/${video.thumbnail}`}
-                date={video.date}
-                matchLink={video.video_link}
-              />
-            </View>
+            <HighlightsCard
+              mainTitle={video.title}
+              backgroundImg={`https://my.ispl-t10.com/images/videos/thumbnail/${video.thumbnail}`}
+              date={video.date}
+              matchLink={video.video_link}
+              key={index}
+              title={""}
+              customWidth={{ width: 300 }}
+              padLeft={{paddingHorizontal: 5}}
+            />
           ))}
-        </Swiper>
+        </ScrollView>
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   mainWrap: {
     height: 420,

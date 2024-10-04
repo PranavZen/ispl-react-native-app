@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   StyleSheet,
 } from "react-native";
@@ -51,14 +51,14 @@ const Tabs: React.FC<TabsProps> = ({ children }) => {
           {tabsArray.map((child) => {
             const { label, spanImg } = child.props;
             return (
-              <TouchableOpacity
+              <Pressable
                 key={label}
                 style={[styles.tab, activeTab === label && styles.activeTab]}
                 onPress={() => handleTabClick(label)}
               >
                 {spanImg && <Text style={styles.spanImg}>{spanImg}</Text>}
                 <Text style={styles.btnName}>{label}</Text>
-              </TouchableOpacity>
+              </Pressable>
             );
           })}
         </ScrollView>

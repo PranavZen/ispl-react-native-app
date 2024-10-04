@@ -1,0 +1,16 @@
+# OSX
+#
+.DS_Store
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+sdk.dir=C:\\Users\\pranavz\\AppData\\Local\\Android\\Sdk
+*.iml
+*.hprof
+.cxx/
+
+# Bundle artifacts
+*.jsbundle

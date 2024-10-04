@@ -4,7 +4,7 @@ import {
   Text,
   Image,
   Dimensions,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from "react-native";
 import Swiper from "react-native-swiper";
@@ -16,15 +16,27 @@ interface BannerItem {
   title: string;
   description: string;
   imageUrl: string;
+  buttonName: string;
+  noOverlay: string;
 }
 
 const banners: BannerItem[] = [
+  {
+    title: "",
+    description: "",
+    imageUrl:
+      "https://www.ispl-t10.com/static/media/banner-5.084769a09a502bca3cf6.png",
+    buttonName: "",
+    noOverlay: "rgba(0, 0, 0, 0)"
+  },
   {
     title: "AB CHALTE HAI STREET TO STADIUM",
     description:
       "ISPL is Committed to Bridging the gap between street cricket and stadium glory!",
     imageUrl:
       "https://www.ispl-t10.com/static/media/banner-3.bc691cf22fa2793723bb.webp",
+    buttonName: "Spot Registration",
+    noOverlay: "rgba(0, 0, 0, 0.5)"
   },
   {
     title: "AB CHALTE HAI STREET TO STADIUM",
@@ -32,6 +44,8 @@ const banners: BannerItem[] = [
       "ISPL is Committed to Bridging the gap between street cricket and stadium glory!",
     imageUrl:
       "https://www.ispl-t10.com/static/media/banner-2.1c9b2becdb48ef45491d.webp",
+    buttonName: "Spot Registration",
+    noOverlay: "rgba(0, 0, 0, 0.5)"
   },
   {
     title: "AB CHALTE HAI STREET TO STADIUM",
@@ -39,6 +53,8 @@ const banners: BannerItem[] = [
       "ISPL is Committed to Bridging the gap between street cricket and stadium glory!",
     imageUrl:
       "https://www.ispl-t10.com/static/media/banner-1.11c74a19d24a35e2380e.webp",
+    buttonName: "Spot Registration",
+    noOverlay: "rgba(0, 0, 0, 0.5)"
   },
 ];
 
@@ -48,13 +64,15 @@ const BannerSlider: React.FC = () => {
   const renderBannerItem = (item: BannerItem) => (
     <View key={item.title} style={styles.bannerContainer}>
       <Image source={{ uri: item.imageUrl }} style={styles.bannerImage} />
-      <View style={styles.overlay} />
+      <View style={[styles.overlay, { backgroundColor: item.noOverlay }]} />
       <View style={styles.textContent}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("registration")}>
-          <Text style={styles.readMore}>Register Now</Text>
-        </TouchableOpacity>
+        {/* <Pressable
+          onPress={() => navigation.navigate("registrationformdashboard")}
+        >
+          <Text style={styles.readMore}>{item.buttonName}</Text>
+        </Pressable> */}
       </View>
     </View>
   );
@@ -104,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#fff",
     marginBottom: 10,
-    width : "70%"
+    width: "70%",
   },
   readMore: {
     fontSize: 14,

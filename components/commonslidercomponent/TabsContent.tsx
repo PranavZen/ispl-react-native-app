@@ -1,89 +1,50 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { Text, View } from "react-native";
-import Tabs from "../sectionscomponent/tabsbox/Tabs";
-import { IconResults } from "./IconResults";
-import { IconResultsOne } from "./IconResultsOne";
-import { IconResultsTwo } from "./IconResultsTwo";
-const tabIcons = {
-  Results: <IconResults />,
-  IconResultsOne: <IconResultsOne />,
-  IconResultsTwo: <IconResultsTwo />,
-};
-export default function TabsContent() {
-  return (
-    <View style={styles.container}>
-      <Text>TabsContent</Text>
-      <Tabs>
-        <View
-          style={styles.tabContainer}
-          label="Results"
-          spanImg={tabIcons.Results}
-        >
-          <View style={styles.tabHeader}>
-            <Text style={styles.tabLabel}>Results</Text>
-          </View>
-          <View style={styles.tabContent}>
-            <Text>Tab 1</Text>
-            <Text>Tab 1</Text>
-          </View>
-        </View>
-        <View
-          style={styles.tabContainer}
-          label="Points Table"
-          spanImg={tabIcons.IconResultsOne}
-        >
-          <View style={styles.tabHeader}>
-            <Text style={styles.tabLabel}>Points Table</Text>
-          </View>
-          <View style={styles.tabContent}>
-            <Text>Tab 100000000000</Text>
-            <Text>Tab 100000000000</Text>
-          </View>
-        </View>
-        <View
-          style={styles.tabContainer}
-          label="Player Stats"
-          spanImg={tabIcons.IconResultsTwo}
-        >
-          <View style={styles.tabHeader}>
-            <Text style={styles.tabLabel}>Player Stats</Text>
-          </View>
-          <View style={styles.tabContent}>
-            <Text>Tab 30000000000</Text>
-            <Text>Tab 30000000000</Text>
-          </View>
-        </View>
-      </Tabs>
-    </View>
-  );
+import * as React from "react";
+import { useState } from "react";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { TabView, SceneMap, Route } from "react-native-tab-view";
+import Table from "../sectionscomponent/table/Table";
+import PlayerStatsTable from "../sectionscomponent/table/PlayerStatsTable";
+
+const FirstRoute: React.FC = () => (
+  <View style={[{ backgroundColor: "#fff" }]}>
+    <Text>kjsd bckjdsb cdsj c</Text>
+    <Text>kjsd bckjdsb cdsj c</Text>
+  </View>
+);
+
+interface TabRoute extends Route {
+  key: string;
+  title: string;
 }
+
+const TabViewExample: React.FC = () => {
+  const [index, setIndex] = useState<number>(0);
+  const [routes] = useState<TabRoute[]>([
+    { key: "first", title: "Results" },
+    { key: "second", title: "Points Table" },
+    { key: "thired", title: "Player Stats" },
+  ]);
+
+  return (
+    <TabView
+      navigationState={{ index, routes }}
+      renderScene={SceneMap({
+        first: FirstRoute,
+        second: Table,
+        thired: PlayerStatsTable,
+      })}
+      onIndexChange={setIndex}
+      initialLayout={{ width: Dimensions.get("window").width }}
+      style={styles.container}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 10,
-    paddingVertical: 30,
-  },
-  tabContainer: {
-    padding: 16,
-  },
-  tabHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  tabLabel: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginRight: 8,
-  },
-  tabIcon: {
-    width: 24,
-    height: 24,
-  },
-  tabContent: {
-    paddingHorizontal: 16,
+    height: 680,
+    flex : 1
   },
 });
+
+export default TabViewExample;

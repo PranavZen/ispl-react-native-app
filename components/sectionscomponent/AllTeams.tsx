@@ -7,7 +7,7 @@ export default function AllTeams() {
       <Text style={styles.sectionTitle}>All Teams</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View style={styles.boxWrap}>
-          <View style={styles.box}>
+          <View style={styles.box}> 
             <Image
               source={require("../../assets/images/mm.png")}
               style={styles.boxImg}

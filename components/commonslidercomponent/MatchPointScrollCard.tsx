@@ -3,12 +3,12 @@ import axios from "axios";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import MatchResultCard from "@/components/cardcomponents/MatchResultCard";
 
-function formatDate(dateString) {
+function formatDate(dateString: string | number | Date) {
   const options = { day: "numeric", month: "short", year: "numeric" };
   return new Date(dateString).toLocaleDateString("en-IN", options);
 }
 
-function formatTime(timeString) {
+function formatTime(timeString: { split: (arg0: string) => [any, any]; }) {
   let [hours, minutes] = timeString.split(":");
   hours = parseInt(hours, 10);
   const period = hours >= 12 ? "PM" : "AM";
@@ -43,7 +43,7 @@ export default function MatchPointScrollCard() {
     fetchMatches();
   }, []);
 
-  const getWinMessage = (match) => {
+  const getWinMessage = (match: never) => {
     if (match.team_one_scrore > match.team_two_scrore) {
       return `${match.from_team_name.toUpperCase()} WON BY ${
         match.team_one_scrore - match.team_two_scrore
@@ -56,7 +56,7 @@ export default function MatchPointScrollCard() {
     return "MATCH TIED";
   };
 
-  const getCategoryName = (match) => {
+  const getCategoryName = (match: never) => {
     if (match.cat_id === 3) {
       return "LEAGUE MATCH";
     } else if (match.category_name === "QUALIFIER 1") {
@@ -72,7 +72,7 @@ export default function MatchPointScrollCard() {
 
   return (
     <View style={styles.wrapperBox}>
-        <Text style={styles.titleText}>Recent Matches</Text>
+      <Text style={styles.titleText}>Recent Matches</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {loading ? (
           <View style={styles.loadingBox}>
@@ -107,14 +107,14 @@ export default function MatchPointScrollCard() {
 const styles = StyleSheet.create({
   wrapperBox: {
     // flex: 1,
-    marginBottom: 20
+    marginBottom: 20,
   },
-  titleText:{
+  titleText: {
     fontSize: 18,
     color: "#fff",
     fontWeight: "600",
     paddingHorizontal: 10,
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   loadingBox: {
     height: 80,
@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#fff",
     fontWeight: "500",
-    textAlign: "center"
+    textAlign: "center",
   },
 });
