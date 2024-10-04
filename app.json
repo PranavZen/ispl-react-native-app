@@ -4,24 +4,24 @@
     "slug": "newexpo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icons.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splashs.png",
       "resizeMode": "contain",
       "backgroundColor": "#182046"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.newexpo"
+      "bundleIdentifier": "com.cricclubs.isplt10"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icons.png",
         "backgroundColor": "#182046"
       },
-      "package": "com.anonymous.newexpo"
+      "package": "com.cricclubs.isplt10"
     },
     "web": {
       "bundler": "metro",

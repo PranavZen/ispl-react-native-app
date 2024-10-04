@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
   Text,
   TextInput,
   Pressable,
@@ -14,7 +13,6 @@ import { CommonActions, useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
-import { Linking } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "react-native";
 import { RefreshControl } from "react-native";
@@ -114,7 +112,6 @@ const LoginForm: React.FC = () => {
 
         setTimeout(() => {
           navigation.navigate(redirectPath);
-          // navigation.replace(redirectPath);
         }, 2000);
       }
     } catch (err: any) {
@@ -131,16 +128,11 @@ const LoginForm: React.FC = () => {
         err.response.status === 400 &&
         err.response.data.pay_request_id
       ) {
-        // handlePaymentFailure(err.response.data.pay_request_id);
         Toast.show({
           type: "error",
           text1:
             "Since you did not complete the payment and registration is now closed, we regret to inform you that you are unable to log in at this time.",
         });
-        // Alert.alert(
-        //   `Since you did not complete the payment and registration is now closed,
-        //    we regret to inform you that you are unable to log in at this time.`
-        // );
       } else {
         const errorMessage =
           err.response?.data?.error_message ||
@@ -286,7 +278,6 @@ const LoginForm: React.FC = () => {
           type: "error",
           text1: err.response.data.message.failed[0],
         });
-        // handlePaymentFailure(err.response.data.pay_request_id);
       } else {
         Toast.show({
           type: "error",
@@ -297,38 +288,6 @@ const LoginForm: React.FC = () => {
       setLoading(false);
     }
   };
-
-  // const handlePaymentFailure = async (payRequestId: any): Promise<void> => {
-  //   try {
-  //     const paymentRequestResponse = await axios.post(
-  //       `https://my.ispl.popopower.com/api/payment-request/${payRequestId}`
-  //     );
-
-  //     if (paymentRequestResponse.data.status === "Successful") {
-  //       const { encrypted_data, access_code } = paymentRequestResponse.data;
-
-  //       const url = `https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&encRequest=${encrypted_data}&access_code=${access_code}`;
-
-  //       Linking.openURL(url).catch((err) => {
-  //         console.error("Failed to open URL:", err);
-  //         Toast.show({
-  //           type: "error",
-  //           text1: "Failed to open payment page. Please try again.",
-  //         });
-  //       });
-  //     } else {
-  //       Toast.show({
-  //         type: "error",
-  //         text1: "Payment failed. Please try again.",
-  //       });
-  //     }
-  //   } catch {
-  //     Toast.show({
-  //       type: "error",
-  //       text1: "An error occurred during payment processing.",
-  //     });
-  //   }
-  // };
 
   const handleLoginWithPassword = (): void => {
     setShowOTP(false);
@@ -343,7 +302,6 @@ const LoginForm: React.FC = () => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-      // setError("");
       clearInputs();
     }, 1000);
   };

@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface MenuItem {
   id: string;
@@ -31,35 +30,13 @@ const menuItems: MenuItem[] = [
 
 const More: React.FC = () => {
   const navigation = useNavigation();
-  const [filteredMenuItems, setFilteredMenuItems] = useState<MenuItem[]>([]);
-
-  useEffect(() => {
-    const checkApiToken = async () => {
-      const apiToken = await AsyncStorage.getItem("apiToken");
-      if (apiToken) {
-        // Show all menu items if apiToken exists
-        setFilteredMenuItems(menuItems);
-      } else {
-        // Filter out "Dashboard" and "Logout" if no apiToken
-        setFilteredMenuItems(menuItems.filter((item) => item.id !== "6" && item.id !== "7"));
-      }
-    };
-    checkApiToken();
-  }, []);
-
-  const handlePress = async (screen: string, id: string) => {
-    if (id === "7") {
-      // Clear local storage and redirect to "index" on Logout
-      await AsyncStorage.clear();
-      navigation.navigate("index");
-    } else {
-      navigation.navigate(screen);
-    }
+  const handlePress = (screen: string) => {
+    navigation.navigate(screen);
   };
 
   const renderItem = ({ item }: { item: MenuItem }) => (
     <TouchableOpacity
-      onPress={() => handlePress(item.screen, item.id)}
+      onPress={() => handlePress(item.screen)}
       style={styles.menuItem}
     >
       <Text style={styles.menuText}>{item.title}</Text>
@@ -69,7 +46,7 @@ const More: React.FC = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={filteredMenuItems}
+        data={menuItems}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

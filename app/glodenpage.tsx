@@ -1,4 +1,4 @@
-import TimeSlot from "@/components/goldenpagecomponents/TimeSlot";
+// import TimeSlot from "@/components/goldenpagecomponents/TimeSlot";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -12,6 +12,8 @@ import {
   View,
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
+// import animationData from "../components/anime/confitee.json";
+import LottieView from "lottie-react-native";
 
 const GoldenPage: React.FC = () => {
   const [playerName, setPlayerName] = useState<string>("");
@@ -32,6 +34,7 @@ const GoldenPage: React.FC = () => {
   const [isSlotAvailable, setIsSlotAvailable] = useState<boolean>(false);
   const [isTicketId, setIsTicketId] = useState<number>(0);
   const [refreshing, setRefreshing] = useState(false);
+  
   const generateQRCodeData = () => {
     return JSON.stringify(userNameSlot);
   };
@@ -101,7 +104,7 @@ const GoldenPage: React.FC = () => {
     setRefreshing(true);
     setLoading(true);
     await fetchData();
-    setRefreshing(false); 
+    setRefreshing(false);
     setLoading(false);
   };
 
@@ -195,6 +198,18 @@ const GoldenPage: React.FC = () => {
                 }}
                 style={styles.ticketImage}
               />
+              {isTicketId === 2 ? (
+                <View style={styles.lottieWrap}>
+                  <LottieView
+                    source={require("../components/anime/confitee.json")}
+                    autoPlay
+                    loop
+                    style={{ width: 400, height: 400 }}
+                  />
+                </View>
+              ) : (
+                ""
+              )}
               <View style={styles.ticketTextContainer}>
                 <Text style={styles.ticketText}>
                   {isTicketId === 4
@@ -358,6 +373,10 @@ const styles = StyleSheet.create({
     marginTop: 120,
     marginBottom: 110,
     alignItems: "center",
+    position : "relative"
+  },
+  lottieWrap:{
+    position : "absolute",
   },
   ticketImage: {
     width: 600,
