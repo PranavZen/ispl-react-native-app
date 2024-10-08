@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 import SectionTitle from "./SectionTitle";
 import HeighlightsCard from "../cardcomponents/SliderCard";
 
@@ -13,16 +13,22 @@ interface Video {
 
 export default function HighlightsSection() {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetch("https://my.ispl.popopower.com/api/video-master/all-vedios")
+    fetch("https://my.ispl-t10.com/api/video-master/all-vedios")
       .then((response) => response.json())
       .then((data) => {
         const filteredVideos = data.data["all-video"].filter(
           (video: Video) => video.category_names === "Highlights"
         );
         setVideos(filteredVideos);
+        setLoading(false); // Set loading to false after data is fetched
       })
-      .catch((error) => console.error("Error fetching videos:", error));
+      .catch((error) => {
+        console.error("Error fetching videos:", error);
+        setLoading(false); // Also set loading to false in case of an error
+      });
   }, []);
 
   return (
@@ -33,20 +39,24 @@ export default function HighlightsSection() {
           readMore="Read More"
           targetScreen="highlightsmainscreen"
         />
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {videos.map((video, index) => (
-            <HeighlightsCard
-              mainTitle={video.title}
-              backgroundImg={`https://my.ispl-t10.com/images/videos/thumbnail/${video.thumbnail}`}
-              date={video.date}
-              matchLink={video.video_link}
-              key={index}
-              title={""}
-              customWidth={{ width: 300 }}
-              padLeft={{paddingHorizontal: 5}}
-            />
-          ))}
-        </ScrollView>
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {videos.map((video, index) => (
+              <HeighlightsCard
+                mainTitle={video.title}
+                backgroundImg={`https://my.ispl-t10.com/images/videos/thumbnail/${video.thumbnail}`}
+                date={video.date}
+                matchLink={video.video_link}
+                key={index}
+                title={""}
+                customWidth={{ width: 300 }}
+                padLeft={{ paddingHorizontal: 5 }}
+              />
+            ))}
+          </ScrollView>
+        )}
       </View>
     </View>
   );

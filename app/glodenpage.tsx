@@ -59,7 +59,7 @@ const GoldenPage: React.FC = () => {
 
     try {
       const response = await axios.get(
-        "https://my.ispl.popopower.com/api/user-dashboard-api",
+        "https://my.ispl-t10.com/api/user-dashboard-api",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ const GoldenPage: React.FC = () => {
             <Image
               style={styles.logo}
               source={{
-                uri: "https://my.ispl.popopower.com/assets/img/logo.png",
+                uri: "https://my.ispl-t10.com/assets/img/logo.png",
               }}
               alt="Logo"
             />

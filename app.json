@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "newexpo",
-    "slug": "newexpo",
+    "name": "ISPL-T10",
+    "slug": "ISPL-T10",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icons.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splashs.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#182046"
     },
@@ -18,7 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icons.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#182046"
       },
       "package": "com.cricclubs.isplt10"
@@ -26,7 +26,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/adaptive-icon.png"
     },
     "plugins": [
       "expo-router"

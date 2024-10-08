@@ -26,7 +26,7 @@ const HighlightsMainScreen = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://my.ispl.popopower.com/api/video-master/all-vedios")
+    fetch("https://my.ispl-t10.com/api/video-master/all-vedios")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

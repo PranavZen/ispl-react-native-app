@@ -9,6 +9,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import * as Updates from "expo-updates";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { View, Text, TouchableOpacity } from "react-native";
@@ -22,6 +23,11 @@ interface CustomHeaderProps {
 }
 
 function CustomHeader({ navigation, title }: CustomHeaderProps) {
+  const handleBackPress = async () => {
+    navigation.navigate("index"); // Redirect to home screen (tabs)
+    // await Updates.reloadAsync(); // Reload the app
+  };
+
   return (
     <View
       style={{
@@ -33,7 +39,7 @@ function CustomHeader({ navigation, title }: CustomHeaderProps) {
       }}
     >
       <TouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={handleBackPress} // Use custom back press handler
         style={{ paddingRight: 10 }}
       >
         <Ionicons name="arrow-back" size={24} color="white" />
@@ -82,6 +88,14 @@ export default function RootLayout() {
           })}
         />
         <Stack.Screen
+          name="matchcenter"
+          options={({ navigation }) => ({
+            header: () => (
+              <CustomHeader navigation={navigation} title="Match Center" />
+            ),
+          })}
+        />
+        <Stack.Screen
           name="allTeams"
           options={({ navigation }) => ({
             header: () => (
@@ -90,10 +104,34 @@ export default function RootLayout() {
           })}
         />
         <Stack.Screen
+          name="allvideos"
+          options={({ navigation }) => ({
+            header: () => (
+              <CustomHeader navigation={navigation} title="All Videos" />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="pointsTable"
+          options={({ navigation }) => ({
+            header: () => (
+              <CustomHeader navigation={navigation} title="Points Table" />
+            ),
+          })}
+        />
+        <Stack.Screen
           name="newsnevents"
           options={({ navigation }) => ({
             header: () => (
               <CustomHeader navigation={navigation} title="All News" />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="TeamDetail"
+          options={({ navigation }) => ({
+            header: () => (
+              <CustomHeader navigation={navigation} title="Team Details" />
             ),
           })}
         />

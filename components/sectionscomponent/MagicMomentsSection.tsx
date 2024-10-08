@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 import SectionTitle from "./SectionTitle";
 import HighlightsCard from "../cardcomponents/SliderCard";
 
@@ -13,6 +13,7 @@ interface Video {
 
 export default function MagicMommentSection() {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://my.ispl-t10.com/api/video-master/all-vedios")
@@ -22,8 +23,10 @@ export default function MagicMommentSection() {
           (video: Video) => video.category_names === "Magic-Moments"
         );
         setVideos(magicMomentVideos);
+        setLoading(false);
       })
       .catch((error) => console.error("Error fetching videos:", error));
+    setLoading(false);
   }, []);
 
   return (
@@ -34,20 +37,24 @@ export default function MagicMommentSection() {
           readMore="Read More"
           targetScreen="magicmomentsmainscreen"
         />
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {videos.map((video, index) => (
-            <HighlightsCard
-              mainTitle={video.title}
-              backgroundImg={`https://my.ispl-t10.com/images/videos/thumbnail/${video.thumbnail}`}
-              date={video.date}
-              matchLink={video.video_link}
-              key={index}
-              title={""}
-              customWidth={{ width: 300 }}
-              padLeft={{paddingHorizontal: 5}}
-            />
-          ))}
-        </ScrollView>
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {videos.map((video, index) => (
+              <HighlightsCard
+                mainTitle={video.title}
+                backgroundImg={`https://my.ispl-t10.com/images/videos/thumbnail/${video.thumbnail}`}
+                date={video.date}
+                matchLink={video.video_link}
+                key={index}
+                title={""}
+                customWidth={{ width: 300 }}
+                padLeft={{ paddingHorizontal: 5 }}
+              />
+            ))}
+          </ScrollView>
+        )}
       </View>
     </View>
   );

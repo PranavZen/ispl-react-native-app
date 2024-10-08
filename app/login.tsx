@@ -20,7 +20,7 @@ import { RefreshControl } from "react-native";
 interface ErrorState {
   email: string;
   password: string;
-  otp: string;
+  otp: string; 
   general: string;
 }
 
@@ -86,7 +86,7 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://my.ispl.popopower.com/api/post-login",
+        "https://my.ispl-t10.com/api/post-login",
         { email, password }
       );
 
@@ -166,7 +166,7 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://my.ispl.popopower.com/api/send-otp",
+        "https://my.ispl-t10.com/api/send-otp",
         { email }
       );
 
@@ -199,7 +199,7 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://my.ispl.popopower.com/api/verify-otp",
+        "https://my.ispl-t10.com/api/verify-otp",
         { otp, email }
       );
 
@@ -214,7 +214,7 @@ const LoginForm: React.FC = () => {
 
         try {
           const response = await axios.get(
-            "https://my.ispl.popopower.com/api/user-dashboard-api",
+            "https://my.ispl-t10.com/api/user-dashboard-api",
             {
               headers: {
                 Authorization: `Bearer ${await AsyncStorage.getItem(

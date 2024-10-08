@@ -70,7 +70,7 @@ const data = [
   },
 ];
 
-const Table: React.FC = () => {
+const PointsTable: React.FC = () => {
   return (
     <ScrollView
       horizontal={true}
@@ -131,6 +131,7 @@ const Table: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#002458",
   },
   table: {
     width: "100%",
@@ -172,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Table;
+export default PointsTable;

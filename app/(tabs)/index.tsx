@@ -5,6 +5,7 @@ import MagicMomentsSection from "@/components/sectionscomponent/MagicMomentsSect
 import NewsnEvents from "@/components/sectionscomponent/NewsnEvents";
 import WhatAreLookingFor from "@/components/sectionscomponent/WhatAreLookingFor";
 import { useState } from "react";
+import { StatusBar } from "react-native";
 import { RefreshControl } from "react-native";
 import { StyleSheet, ScrollView } from "react-native";
 
@@ -24,6 +25,7 @@ export default function HomeScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
       >
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
         {/* <TopSlider /> */}
         <BannerSlider />
         <HeighlightsSection />

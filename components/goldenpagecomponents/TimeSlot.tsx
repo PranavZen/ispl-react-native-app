@@ -76,7 +76,7 @@ const TimeSlot = () => {
         }
 
         const response = await fetch(
-          "https://my.ispl.popopower.com/api/check-disclaimer-slots",
+          "https://my.ispl-t10.com/api/check-disclaimer-slots",
           {
             method: "POST",
             headers: {
@@ -129,7 +129,7 @@ const TimeSlot = () => {
       }
 
       const response = await fetch(
-        `https://my.ispl.popopower.com/api/get-time-slots?city_id=${cityId}`,
+        `https://my.ispl-t10.com/api/get-time-slots?city_id=${cityId}`,
         {
           method: "GET",
           headers: {
@@ -216,7 +216,7 @@ const TimeSlot = () => {
   //       }
 
   //       const response = await axios.get(
-  //         "https://my.ispl.popopower.com/api/user-dashboard-api",
+  //         "https://my.ispl-t10.com/api/user-dashboard-api",
   //         {
   //           headers: {
   //             Authorization: `Bearer ${token}`,
@@ -227,7 +227,7 @@ const TimeSlot = () => {
   //       const user_name_ecp = response.data.user_name_ecp;
 
   //       const paymentRequestResponse = await axios.post(
-  //         `https://my.ispl.popopower.com/api/payment-time-slot-request/${user_name_ecp}`
+  //         `https://my.ispl-t10.com/api/payment-time-slot-request/${user_name_ecp}`
   //       );
 
   //       if (paymentRequestResponse.data.status === "Successful") {
@@ -335,7 +335,7 @@ const TimeSlot = () => {
       }
 
       const otpResponse = await fetch(
-        "https://my.ispl.popopower.com/api/timeslot_send_otp",
+        "https://my.ispl-t10.com/api/timeslot_send_otp",
         {
           method: "POST",
           headers: {
@@ -396,7 +396,7 @@ const TimeSlot = () => {
       }
 
       const response = await fetch(
-        "https://my.ispl.popopower.com/api/timeslot_verify_otp",
+        "https://my.ispl-t10.com/api/timeslot_verify_otp",
         {
           method: "POST",
           headers: {
@@ -430,7 +430,7 @@ const TimeSlot = () => {
       });
       setLoading(false);
       const saveSlotResponse = await fetch(
-        "https://my.ispl.popopower.com/api/save-time-slots",
+        "https://my.ispl-t10.com/api/save-time-slots",
         {
           method: "POST",
           headers: {
@@ -534,7 +534,7 @@ const TimeSlot = () => {
       }
 
       const response = await fetch(
-        `https://my.ispl.popopower.com/api/get-time-slots?city_id=${cityId}`,
+        `https://my.ispl-t10.com/api/get-time-slots?city_id=${cityId}`,
         {
           method: "GET",
           headers: {
@@ -566,7 +566,7 @@ const TimeSlot = () => {
         }
 
         const response = await fetch(
-          "https://my.ispl.popopower.com/api/user-dashboard-api",
+          "https://my.ispl-t10.com/api/user-dashboard-api",
           {
             method: "POST",
             headers: {
@@ -715,7 +715,7 @@ const TimeSlot = () => {
                       ]}
                     >
                       {isChecked && (
-                        <Ionicons name="checkmark" size={24} color="white" />
+                        <Ionicons name="checkmark" size={24} color="white" /> 
                       )}
                     </View>
                   </Pressable>

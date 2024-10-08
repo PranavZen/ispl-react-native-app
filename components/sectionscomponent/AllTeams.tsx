@@ -1,52 +1,77 @@
-import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function AllTeams() {
+  const [teams, setTeams] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    async function fetchTeams() {
+      try {
+        const response = await fetch(
+          "https://my.ispl-t10.com/api/team/team-list-mobile"
+        );
+        const data = await response.json();
+
+        // Check if the data structure is as expected and update teams state
+        if (data.status === "success" && Array.isArray(data.data.teams_data)) {
+          setTeams(data.data.teams_data); // Access the correct teams data
+        } else {
+          console.error("Failed to fetch teams, unexpected data structure:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      } finally {
+        setLoading(false); // Set loading to false regardless of fetch success
+      }
+    }
+
+    fetchTeams();
+  }, []);
+
+  const handleTeamPress = (team) => {
+    navigation.navigate("TeamDetail", { team });
+  };
+
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.sectionTitle}>All Teams</Text>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <View style={styles.boxWrap}>
-          <View style={styles.box}> 
-            <Image
-              source={require("../../assets/images/mm.png")}
-              style={styles.boxImg}
-            />
-          </View>
-        </View>
-        <View style={styles.boxWrap}>
-          <View style={styles.box}>
-            <Image
-              source={require("../../assets/images/kt.png")}
-              style={styles.boxImg}
-            />
-          </View>
-        </View>
-        <View style={styles.boxWrap}>
-          <View style={styles.box}>
-            <Image
-              source={require("../../assets/images/kbs.png")}
-              style={styles.boxImg}
-            />
-          </View>
-        </View>
-        <View style={styles.boxWrap}>
-          <View style={styles.box}>
-            <Image
-              source={require("../../assets/images/cs.png")}
-              style={styles.boxImg}
-            />
-          </View>
-        </View>
-        <View style={styles.boxWrap}>
-          <View style={styles.box}>
-            <Image
-              source={require("../../assets/images/swp.png")}
-              style={styles.boxImg}
-            />
-          </View>
-        </View>
-      </ScrollView>
+      {loading ? (
+        <ActivityIndicator size="large" color="#003899" />
+      ) : (
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {teams.length > 0 ? ( // Check if teams array is not empty
+            teams.map((team) => (
+              <TouchableOpacity
+                key={team.team_name}
+                onPress={() => handleTeamPress(team)} // Pass the entire team object
+                style={styles.boxWrap}
+              >
+                <View style={styles.box}>
+                  <Image
+                    source={{
+                      uri: `https://my.ispl-t10.com/images/team-master/teams/${team.team_logo}`,
+                    }}
+                    style={styles.boxImg}
+                  />
+                </View>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text style={styles.noTeamsText}>No teams available</Text> // Message if no teams found
+          )}
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -64,9 +89,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     textTransform: "uppercase",
-  },
-  scrollView: {
-    // paddingBottom: 25,
   },
   boxWrap: {
     width: 75,
@@ -89,5 +111,10 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     objectFit: "contain",
+  },
+  noTeamsText: {
+    color: "#fff",
+    textAlign: "center",
+    marginTop: 10,
   },
 });

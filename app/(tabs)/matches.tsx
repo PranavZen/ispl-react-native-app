@@ -6,7 +6,6 @@ import TabsContent from "@/components/commonslidercomponent/TabsContent";
 export default function Matches() {
   return (
     <ScrollView style={styles.container}>
-      <MatchPointScrollCard />
       <TabsContent />
     </ScrollView>
   );

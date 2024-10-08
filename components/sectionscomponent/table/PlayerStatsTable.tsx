@@ -42,7 +42,7 @@ const PlayerStatsTable: React.FC = () => {
     const fetchPlayerStats = async () => {
       try {
         const response = await axios.get(
-          "https://my.ispl.popopower.com/api/player-stat"
+          "https://my.ispl-t10.com/api/player-stat"
         );
         const sortedPlayerStats = response.data.data.player_stat.sort(
           (a: Player, b: Player) => b.runs_batting - a.runs_batting
@@ -197,7 +197,7 @@ const PlayerStatsTable: React.FC = () => {
       />
       <ScrollView style={styles.tableContainer}>
         <View style={styles.table}>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} nestedScrollEnabled={true}>
             <View style={styles.tableContent}>
               <View style={styles.headerRow}>
                 <Text style={[styles.headerCell, styles.headerNumText]}>
@@ -265,7 +265,6 @@ const PlayerStatsTable: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 1000,
   },
   filterContainer: {
     marginBottom: 16,
